@@ -23,9 +23,18 @@ LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
     }
     ]}) do
   cross_origin
-  # the guts live here
 
-  {"message" => "yes, it worked"}.to_json
+  begin
+    return 400 unless params["amount"].present? && params["amount"].to_f > 0
+
+    user = User.find(params["userId"])
+    user.euros_spent += params["amount"].to_f
+    user.save!
+
+    { "result" => "ok" }.to_json
+  rescue Mongoid::Errors::DocumentNotFound
+    404
+  end
 end
 
 
@@ -45,7 +54,7 @@ LoyaltyApp.add_route('GET', '/api/user/{userId}/points', {
     },
     ]}) do
   cross_origin
-  # the guts live here
+
   begin
     user = User.find(params["userId"])
     { "points" => user.points }.to_json
