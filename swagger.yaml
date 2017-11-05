@@ -78,6 +78,26 @@ paths:
           description: "Wrong payload."
         404:
           description: "User not found."
+ /user/{userId}/status:
+    get:
+      tags:
+      - "status"
+      summary: "Get user loyalty status."
+      operationId: "getStatus"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "User's unique ID"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success."
+          schema:
+            $ref: "#/definitions/UserStatus"
+        404:
+          description: "User not found."
 securityDefinitions:
   api_key:
     type: "apiKey"
@@ -93,6 +113,17 @@ definitions:
         type: "number"
         format: "float"
         minimum: 0
+  UserStatus:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        enum:
+          - bronze
+          - silver
+          - gold
+          - platinum
+
   inline_response_201:
     properties:
       id:
