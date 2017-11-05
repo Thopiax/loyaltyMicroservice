@@ -1,0 +1,100 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a simple loyalty tracking microservice.\n"
+  version: "1.0.0"
+  title: "LOYALTY. Microservice"
+  contact:
+    email: "rafa.ballestiero@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/api"
+schemes:
+- "https"
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create new user."
+      operationId: "addUser"
+      parameters: []
+      responses:
+        201:
+          description: "Created."
+          schema:
+            $ref: "#/definitions/inline_response_201"
+        500:
+          description: "Couldn't create user."
+  /user/{userId}/points:
+    get:
+      tags:
+      - "points"
+      summary: "Get user loyalty points."
+      operationId: "getPoints"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "User's unique ID"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "Success."
+          schema:
+            $ref: "#/definitions/UserPoints"
+        404:
+          description: "User not found."
+    post:
+      tags:
+      - "points"
+      summary: "Add euros spent to user profile."
+      operationId: "addPoints"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "User's unique ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Points payload."
+        required: true
+        schema:
+          $ref: "#/definitions/UserPoints"
+      responses:
+        200:
+          description: "Success."
+        400:
+          description: "Wrong payload."
+        404:
+          description: "User not found."
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  UserPoints:
+    type: "object"
+    required:
+    - "euros_spent"
+    properties:
+      euros_spent:
+        type: "number"
+        format: "float"
+        minimum: 0
+  inline_response_201:
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
