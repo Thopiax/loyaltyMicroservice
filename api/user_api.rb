@@ -1,18 +1,17 @@
 require 'json'
-
+require './lib/models/user'
 
 LoyaltyApp.add_route('POST', '/api/user', {
   "resourcePath" => "/User",
   "summary" => "Create new user.",
-  "nickname" => "add_user", 
-  "responseClass" => "inline_response_201", 
-  "endpoint" => "/user", 
+  "nickname" => "add_user",
+  "responseClass" => "inline_response_201",
+  "endpoint" => "/user",
   "notes" => "",
   "parameters" => [
     ]}) do
   cross_origin
-  # the guts live here
 
-  {"message" => "yes, it worked"}.to_json
+  new_user_id = User.create.id.to_s
+  {"id" => new_user_id}.to_json
 end
-
