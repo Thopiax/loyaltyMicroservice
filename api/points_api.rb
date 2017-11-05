@@ -25,7 +25,7 @@ LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   cross_origin
 
   return 400 unless params["amount"].present? && params["amount"].to_f > 0
-  User.fetch_or_404(params["userId"]) do |user|
+  User.find_or_404(params["userId"]) do |user|
     user.euros_spent += params["amount"].to_f
     user.save!
     200
@@ -50,7 +50,7 @@ LoyaltyApp.add_route('GET', '/api/user/{userId}/points', {
     ]}) do
   cross_origin
 
-  User.fetch_or_404(params["userId"]) do |user|
+  User.find_or_404(params["userId"]) do |user|
     { "points" => user.points }.to_json
   end
 end
