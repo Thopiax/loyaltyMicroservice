@@ -1,7 +1,7 @@
 require 'json'
 
 
-MyApp.add_route('POST', '/api/user', {
+LoyaltyApp.add_route('POST', '/api/user', {
   "resourcePath" => "/User",
   "summary" => "Create new user.",
   "nickname" => "add_user", 

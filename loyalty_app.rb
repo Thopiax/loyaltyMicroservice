@@ -2,7 +2,7 @@ require './lib/swaggering'
 require 'mongoid'
 
 # only need to extend if you want special configuration!
-class MyApp < Swaggering
+class LoyaltyApp < Swaggering
   self.configure do |config|
     config.api_version = '1.0.0'
     Mongoid.load!("./config/mongoid.yml")

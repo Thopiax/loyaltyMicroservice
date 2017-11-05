@@ -1,7 +1,7 @@
 require 'json'
 
 
-MyApp.add_route('POST', '/api/user/{userId}/points', {
+LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
   "summary" => "Add euros spent to user profile.",
   "nickname" => "add_points", 
@@ -29,7 +29,7 @@ MyApp.add_route('POST', '/api/user/{userId}/points', {
 end
 
 
-MyApp.add_route('GET', '/api/user/{userId}/points', {
+LoyaltyApp.add_route('GET', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
   "summary" => "Get user loyalty points.",
   "nickname" => "get_points", 
