@@ -63,8 +63,8 @@ paths:
         in: "path"
         description: "User's unique ID"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
+        format: "uuid"
       - in: "body"
         name: "body"
         description: "Points payload."

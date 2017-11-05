@@ -4,15 +4,15 @@ require 'json'
 LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
   "summary" => "Add euros spent to user profile.",
-  "nickname" => "add_points", 
-  "responseClass" => "void", 
-  "endpoint" => "/user/{userId}/points", 
+  "nickname" => "add_points",
+  "responseClass" => "void",
+  "endpoint" => "/user/{userId}/points",
   "notes" => "",
   "parameters" => [
     {
       "name" => "user_id",
       "description" => "User&#39;s unique ID",
-      "dataType" => "int",
+      "dataType" => "string",
       "paramType" => "path",
     },
     {
@@ -32,9 +32,9 @@ end
 LoyaltyApp.add_route('GET', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
   "summary" => "Get user loyalty points.",
-  "nickname" => "get_points", 
-  "responseClass" => "UserPoints", 
-  "endpoint" => "/user/{userId}/points", 
+  "nickname" => "get_points",
+  "responseClass" => "int",
+  "endpoint" => "/user/{userId}/points",
   "notes" => "",
   "parameters" => [
     {
@@ -46,7 +46,10 @@ LoyaltyApp.add_route('GET', '/api/user/{userId}/points', {
     ]}) do
   cross_origin
   # the guts live here
-
-  {"message" => "yes, it worked"}.to_json
+  begin
+    user = User.find(params["userId"])
+    { "points" => user.points }.to_json
+  rescue Mongoid::Errors::DocumentNotFound
+    404
+  end
 end
-
