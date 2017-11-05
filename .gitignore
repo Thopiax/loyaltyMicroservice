@@ -1,0 +1,8 @@
+.DS_STORE
+*.swp
+*.rbc
+*.sass-cache
+
+/Gemfile.lock
+.swagger-codegen-ignore
+.swagger-codegen
