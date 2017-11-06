@@ -50,7 +50,7 @@ class UserTestCase < Test::Unit::TestCase
 
   def test_add_points_works_with_higher_status
     user = create_user(id: 'add_points_with_higher_status_user', status_index: 2)
-    p user.status
+
     user.add_points(5, "false")
     user.save!
 

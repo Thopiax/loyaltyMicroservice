@@ -1,4 +1,4 @@
-require_relative './test/test_helper'
+require './test/test_helper'
 
 class StatusTestCase < Test::Unit::TestCase
 
