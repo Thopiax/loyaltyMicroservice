@@ -1,29 +1,68 @@
-# Swagger for Sinatra
+# LOYALTY Microservice - Technical test
 
-## Overview
-This is a project to provide Swagger support inside the [Sinatra](http://www.sinatrarb.com/) framework.  You can find
-out more about both the spec and the framework at http://swagger.io.  For more information about 
-Wordnik's APIs, please visit http://developer.wordnik.com.
-
-## Prerequisites
-You need to install ruby 1.9.3 and the following gems:
-
-```
-sinatra
-sinatra-cross_origin
-```
-
-## Getting started
+## Skeleton
+This is a project to provide Swagger support inside the [Sinatra](http://www.sinatrarb.com/) framework.  
 This sample was generated with the [swagger-codegen](https://github.com/swagger-api/swagger-codegen) project.
 
+## Choices
+
+### Swagger-generated Sinatra server
+
+The swagger code generation offered a functional yet simple basis on which to start. It allowed me to concentrate on building the API logic with great software engineering practices.
+
+
+### Status Enum
+
+Class allows for a more flexible and extendable status hierarchy. Since the ride thresholds for each status weren't given in the instructions, I devised my own and added them as constants in `loyalty_app.rb`:
+
 ```
-rackup -p 4567 config.ru
+BRONZE_THRESHOLD = 0
+SILVER_THRESHOLD = 10
+GOLD_THRESHOLD = 25
+PLATINUM_THRESHOLD = 50
 ```
 
-In your [swagger ui](https://github.com/swagger-api/swagger-ui), put in the following URL:
+### Extension
 
+
+## HOW TO
+
+### Launch the server
+Make sure you have ruby 2.3 or above and the `blunder` gem installed (run `bundle -v`, if that doesn't work run `gem install bundler` to install)
+
+```bash
+> bundle install
+> bundle exec rackup config.ru
 ```
-http://localhost:4567/resources.json
-```
+
+The server will be up and running at `tcp://localost:9292`.
 
 Voila!
+
+### Run tests
+Just run `ruby run_tests.rb` :)
+
+
+## Instructions
+You must implement a loyalty micro-service, using express and a mongo database.
+Make your job in mind to create a pull request.
+
+### Step 1 : user loyalty points
+
+* user earn loyalty points for each spent euros (1 euro = 1 point)
+* user can check its loyalty points total
+
+### Step 2 : loyalty status
+
+* user gets a loyalty status (bronze, silver, gold, platinum), based on its total number of rides
+* add to the route for spending money the fact of doing a ride or not
+* user can check its current status
+* optional: user can check its ride count and know how many rides remain to do to next status
+
+### Step 3 : earning points based on current status
+
+* number of points earned by euro depends on current user status
+	* bronze: 1 euro = 1 point
+	* silver: 1 euro = 3 point
+	* gold: 1 euro = 5 points
+	* platinum: 1 euro = 10 points
