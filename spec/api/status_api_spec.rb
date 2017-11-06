@@ -1,0 +1,2 @@
+class StatusApiSpec < BaseApiSpec
+end
