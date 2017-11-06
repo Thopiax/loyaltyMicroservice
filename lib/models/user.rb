@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
 
+  field :points,       type: Integer, default: 0
   field :euros_spent,  type: Float,   default: 0
   field :status_index, type: Integer, default: 0
   field :ride_count,   type: Integer, default: 0
