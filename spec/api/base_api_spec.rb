@@ -7,19 +7,20 @@ class BaseApiSpec < Test::Unit::TestCase
     LoyaltyApp
   end
 
-  def initialize(param)
-    super(param)
+  def user_id
+    "test#{self.class}"
   end
 
-  def test_user_id
-    "test#{self.class}"
+  def setup_test_user
+    fetch_user
+    yield
   end
 
   private
 
-  def setup_test_user
-    User.find(test_user_id)
-  rescue Mongoid::Errors::DocumentNotFound
-    User.create(id: test_user_id)
+  def fetch_user
+    User.create(id: user_id)
+  rescue Mongo::Error::OperationFailure => e
+    p e
   end
 end
