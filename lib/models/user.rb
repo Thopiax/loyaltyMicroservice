@@ -1,4 +1,7 @@
 require 'concurrency'
+require 'sinatra'
+
+class NoSuchCurrencyCodeError < StandardError; end
 
 class User
   include Mongoid::Document
@@ -54,7 +57,7 @@ class User
   def convert(amount, foreign_currency_code)
     Concurrency.convert(amount, foreign_currency_code, "EUR")
   rescue NoMethodError
-    halt 400, "Wrong currency code"
+    raise NoSuchCurrencyCodeError
   end
 
   def euro_to_point_rate

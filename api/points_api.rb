@@ -1,4 +1,5 @@
 require 'json'
+require './lib/models/user'
 
 LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
@@ -23,11 +24,15 @@ LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
     ]}) do
   cross_origin
 
-  return 400 unless User.valid_user_points(params["moneySpent"], params["isRide"])
+  halt 400, "Bad payload." unless User.valid_user_points(params["moneySpent"], params["isRide"])
   User.find_or_404(params["userId"]) do |user|
-    user.add_points(params["moneySpent"].to_f, params["isRide"], params["foreignCurrencyCode"])
-    user.save!
-    200
+    begin
+      user.add_points(params["moneySpent"].to_f, params["isRide"], params["foreignCurrencyCode"])
+      user.save!
+      200
+    rescue NoSuchCurrencyCodeError
+      halt 400, "The given currency code doesn't exist!"
+    end
   end
 end
 
