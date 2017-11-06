@@ -19,4 +19,8 @@ class User
   rescue Mongoid::Errors::DocumentNotFound
     404
   end
+
+  def self.valid_user_points(euros_spent) do
+    euros_spent.present? && euros_spent.to_f > 0
+  end
 end
