@@ -36,11 +36,11 @@ class Swaggering < Sinatra::Base
     @@configuration ||= Configuration.new
     yield(@@configuration) if block_given?
   end
-  
+
   def self.add_route(method, path, swag={}, opts={}, &block)
     #fullPath = swag["resourcePath"].to_s + @@configuration.format_specifier + path
     fullPath = path.gsub(/{(.*?)}/, ':\1')
-    
+
     accepted = case method.to_s.downcase
       when 'get'
         get(fullPath, opts, &block)
@@ -51,7 +51,7 @@ class Swaggering < Sinatra::Base
       when 'delete'
         delete(fullPath, opts, &block)
         true
-      when 'put' 
+      when 'put'
         put(fullPath, opts, &block)
         true
       else
@@ -76,7 +76,7 @@ class Swaggering < Sinatra::Base
       ops.push(swag)
     end
   end
-  
+
   def self.to_resource_listing
     apis = Array.new
     (@@routes.keys).each do |key|
@@ -86,7 +86,7 @@ class Swaggering < Sinatra::Base
       }
       apis.push api
     end
-  
+
     resource = {
       "apiVersion" => @@configuration.api_version,
       "swaggerVersion" => @@configuration.swagger_version,
@@ -95,7 +95,7 @@ class Swaggering < Sinatra::Base
 
     resource.to_json
   end
-  
+
   def self.to_api(resourcePath)
     apis = {}
     models = []
@@ -108,7 +108,7 @@ class Swaggering < Sinatra::Base
         api = {"path" => path, "description" => "description", "operations" => []}
         apis.merge!(path => api)
       end
-      
+
       parameters = route["parameters"]
 
       unless parameters.nil? then
@@ -132,12 +132,12 @@ class Swaggering < Sinatra::Base
                     "min" => allowables[0],
                     "max" => allowables[1]
                   }
-              end                
+              end
             end
           end
         end
       end
-      
+
       op = {
         "httpMethod" => route["httpMethod"],
         "description" => route["summary"],

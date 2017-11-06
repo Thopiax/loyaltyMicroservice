@@ -24,9 +24,9 @@ LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
     ]}) do
   cross_origin
 
-  return 400 unless User.valid_user_points(params["eurosSpent"])
+  return 400 unless User.valid_user_points(params["eurosSpent"], params["isRide"])
   User.find_or_404(params["userId"]) do |user|
-    user.add_points(params["eurosSpent"].to_f)
+    user.add_points(params["eurosSpent"].to_f, params["isRide"])
     200
   end
 end
