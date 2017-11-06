@@ -11,3 +11,9 @@ production:
       options:
         skip_version_check: true
         safe: true
+test:
+  clients:
+    default:
+      database: loyalty_db_test
+      hosts:
+        - localhost:27017

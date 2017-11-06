@@ -12,7 +12,8 @@ PLATINUM_THRESHOLD = 50
 class LoyaltyApp < Swaggering
   self.configure do |config|
     config.api_version = '1.0.0'
-    Mongoid.load!("./config/mongoid.yml")
+
+    Mongoid.load!("./config/mongoid.yml", environment)
 
     Status.new("bronze", BRONZE_THRESHOLD, 1)
     Status.new("silver", SILVER_THRESHOLD, 3)
