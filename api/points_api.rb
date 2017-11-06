@@ -1,6 +1,5 @@
 require 'json'
 
-
 LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",
   "summary" => "Add euros spent to user profile.",

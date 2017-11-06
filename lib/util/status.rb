@@ -25,8 +25,6 @@ class Status
   end
 
   def self.status(status_index)
-    # return the highest status in the hierarchy (last in list) if index is highest_status + 1 (= size)
-    return @@statuses[-1] if status_index == @@statuses.size
     @@statuses[status_index]
   end
 

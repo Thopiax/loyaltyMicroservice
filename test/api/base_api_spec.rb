@@ -12,15 +12,7 @@ class BaseApiSpec < Test::Unit::TestCase
   end
 
   def setup_test_user
-    fetch_user
+    create_user(id: user_id)
     yield
-  end
-
-  private
-
-  def fetch_user
-    User.create(id: user_id)
-  rescue Mongo::Error::OperationFailure => e
-    p "An error occured: #{e}. If it's a duplicate key error no need to worry."
   end
 end

@@ -14,8 +14,8 @@ class User
   end
 
   def self.valid_user_points(euros_spent, is_ride)
-    euros_spent.present? && euros_spent.to_f > 0 && # check if euros_spent is a positive float
-       is_ride == "false" || is_ride == "true"      # check if is_ride is a boolean
+    euros_spent.present? && euros_spent.to_f.to_s == euros_spent && euros_spent.to_f > 0 && # check if euros_spent is a positive float
+       (is_ride == "false" || is_ride == "true")      # check if is_ride is a boolean
   end
 
   def status
@@ -28,7 +28,7 @@ class User
 
   def add_points(euros_spent, is_ride)
     self.euros_spent += euros_spent
-    self.add_ride if is_ride == "true"
+    add_ride if is_ride == "true"
     # only calculate points at the end in case status changes
     self.points += euros_spent * euro_to_point_rate
   end
@@ -40,13 +40,13 @@ class User
     check_status
   end
 
+  def euro_to_point_rate
+    Status.status_rate(self.status_index)
+  end
+
   def next_status_threshold
     # returns infinity if the next status doesn't exist (i.e. highest possible level)
     Status.status_threshold(self.status_index + 1) || Float::INFINITY
-  end
-
-  def euro_to_point_rate
-    Status.status_rate(self.status_index)
   end
 
   def check_status
