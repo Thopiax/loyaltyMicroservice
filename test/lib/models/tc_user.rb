@@ -1,7 +1,6 @@
-require_relative '../../spec_helper'
-require_relative '../../api/base_api_spec'
+require './test/test_helper'
 
-class UserSpec < Test::Unit::TestCase
+class UserTestCase < Test::Unit::TestCase
 
   def test_find_or_404_works_with_invalid_user
     User.find_or_404("invalid_user") do |result|

@@ -30,7 +30,7 @@ class Swaggering < Sinatra::Base
     # for swagger.yaml
     get("/swagger.yaml") {
       cross_origin
-      File.read("./swagger.yaml");
+      File.read("swagger.yaml");
     }
 
     @@configuration ||= Configuration.new

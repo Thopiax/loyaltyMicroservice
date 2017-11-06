@@ -2,6 +2,8 @@ require 'mongoid'
 
 # include util files
 Dir["./lib/util/*.rb"].each { |file| require file }
+# include swagger files
+Dir["./lib/swagger/*.rb"].each { |file| require file }
 
 BRONZE_THRESHOLD = 0
 SILVER_THRESHOLD = 10

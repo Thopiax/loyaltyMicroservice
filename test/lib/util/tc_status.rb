@@ -1,6 +1,6 @@
-require_relative '../../spec_helper'
+require_relative './test/test_helper'
 
-class StatusSpec < Test::Unit::TestCase
+class StatusTestCase < Test::Unit::TestCase
 
   def test_creating_new_status_adds_it_to_list
     Status.new("test", 100, 42)

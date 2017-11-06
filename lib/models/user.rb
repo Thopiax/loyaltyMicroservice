@@ -14,8 +14,10 @@ class User
   end
 
   def self.valid_user_points(euros_spent, is_ride)
-    euros_spent.present? && euros_spent.to_f.to_s == euros_spent && euros_spent.to_f > 0 && # check if euros_spent is a positive float
-       (is_ride == "false" || is_ride == "true")      # check if is_ride is a boolean
+    # check if euros_spent is a positive float
+    # and check if is_ride is a boolean
+    euros_spent.present? && euros_spent.to_f.to_s == euros_spent &&
+      euros_spent.to_f > 0 && (is_ride == "false" || is_ride == "true")  
   end
 
   def status
