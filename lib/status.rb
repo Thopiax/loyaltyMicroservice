@@ -14,6 +14,10 @@ class Status
     @@statuses[status_index].name
   end
 
+  def self.status_threshold(status_index)
+    @@statuses[status_index].ride_threshold
+  end
+
   def self.add_status(status)
     @@statuses << status
   end

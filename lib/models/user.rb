@@ -1,16 +1,20 @@
 class User
   include Mongoid::Document
 
-  BRONZE_THRESHOLD = 10
-  SILVER_THRESHOLD = 25
-  GOLD_THRESHOLD   = 50
-
-  field :euros_spent, type: Float, default: 0
-  field :status, type: String, default: "bronze"
-  field :ride_count, type: Integer, default: 0
+  field :euros_spent,  type: Float,   default: 0
+  field :status_index, type: Integer, default: 0
+  field :ride_count,   type: Integer, default: 0
 
   def points
     self.euros_spent.to_i
+  end
+
+  def status
+    Status.status_name(self.status_index)
+  end
+
+  def status_threshold
+    Status.status_threshold(self.status_index)
   end
 
   def rides_remaining
@@ -36,13 +40,10 @@ class User
 
   def add_ride
     self.ride_count += 1
-    self.status = loyalty_status
+    check_status
   end
 
-  def loyalty_status
-    return "bronze" if self.ride_count < BRONZE_THRESHOLD 
-    return "silver" if self.ride_count < SILVER_THRESHOLD
-    return "gold"   if self.ride_count < GOLD_THRESHOLD
-    return "platinum"
+  def check_status
+    self.status_index += 1 if self.ride_count > status_threshold
   end
 end
