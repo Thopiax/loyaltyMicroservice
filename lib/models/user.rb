@@ -33,15 +33,16 @@ class User
     self.points += euros_spent * euro_to_point_rate
   end
 
+  private
+
   def add_ride
     self.ride_count += 1
     check_status
   end
 
-  private
-
   def next_status_threshold
-    Status.status_threshold(self.status_index + 1)
+    # returns infinity if the next status doesn't exist (i.e. highest possible level)
+    Status.status_threshold(self.status_index + 1) || Float::INFINITY
   end
 
   def euro_to_point_rate
@@ -49,6 +50,7 @@ class User
   end
 
   def check_status
+    # update status if the ride count passed the next_status_threshold
     self.status_index += 1 if self.ride_count > next_status_threshold
   end
 end

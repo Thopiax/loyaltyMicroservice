@@ -16,7 +16,8 @@ class Status
   end
 
   def self.status_threshold(status_index)
-    self.status(status_index).ride_threshold
+    # return threshold or infinity if the status doesn't exist
+    self.status(status_index)&.ride_threshold
   end
 
   def self.status_rate(status_index)
@@ -24,8 +25,8 @@ class Status
   end
 
   def self.status(status_index)
-    # return the highest status in the hierarchy (last in list) if index out of bounds
-    return @@statuses[status_index] if status_index >= @@statuses.size
+    # return the highest status in the hierarchy (last in list) if index is highest_status + 1 (= size)
+    return @@statuses[-1] if status_index == @@statuses.size
     @@statuses[status_index]
   end
 
