@@ -10,6 +10,6 @@ class LoyaltyApp < Swaggering
 end
 
 # include the api files
-Dir["./api/*.rb"].each { |file|
-  require file
-}
+Dir["./api/*.rb"].each        { |file| require file }
+# include models
+Dir["./lib/models/*.rb"].each { |file| require file }

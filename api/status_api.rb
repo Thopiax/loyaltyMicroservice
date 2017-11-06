@@ -9,7 +9,7 @@ LoyaltyApp.add_route('GET', '/api/user/{userId}/status', {
   "notes" => "",
   "parameters" => [
     {
-      "name" => "user_id",
+      "name" => "userId",
       "description" => "User&#39;s unique ID",
       "dataType" => "string",
       "paramType" => "path",

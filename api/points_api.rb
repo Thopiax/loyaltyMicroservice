@@ -10,7 +10,7 @@ LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "notes" => "",
   "parameters" => [
     {
-      "name" => "user_id",
+      "name" => "userId",
       "description" => "User&#39;s unique ID",
       "dataType" => "string",
       "paramType" => "path",
