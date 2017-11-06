@@ -14,6 +14,7 @@ class LoyaltyApp < Swaggering
     config.api_version = '1.0.0'
 
     Mongoid.load!("./config/mongoid.yml", environment)
+    Mongoid.purge! if environment == :test
 
     Status.new("bronze", BRONZE_THRESHOLD, 1)
     Status.new("silver", SILVER_THRESHOLD, 3)
