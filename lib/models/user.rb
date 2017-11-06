@@ -71,6 +71,6 @@ class User
 
   def check_status
     # update status if the ride count passed the next_status_threshold
-    self.status_index += 1 if self.ride_count > next_status_threshold
+    self.status_index += 1 if self.ride_count >= next_status_threshold
   end
 end

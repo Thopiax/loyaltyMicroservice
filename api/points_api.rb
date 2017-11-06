@@ -1,5 +1,4 @@
 require 'json'
-require './lib/models/user'
 
 LoyaltyApp.add_route('POST', '/api/user/{userId}/points', {
   "resourcePath" => "/Points",

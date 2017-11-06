@@ -29,7 +29,9 @@ As a quick extension to the project, I decided to add the capability of receivin
 ## HOW TO
 
 ### Launch the server
-Make sure you have ruby 2.3 or above and the `blunder` gem installed (run `bundle -v`, if that doesn't work run `gem install bundler` to install)
+Before anything, you need to setup a MongoDB server on your machine with the classic configuration (host: `localhost`, port: `27017`)
+
+Then, make sure you have ruby 2.3 or above and the `blunder` gem installed (run `bundle -v`, if that doesn't work run `gem install bundler` to install)
 
 ```bash
 > bundle install
@@ -43,6 +45,7 @@ Voila!
 ### Run tests
 Just run `ruby run_tests.rb` :)
 
+---
 
 ## Instructions
 You must implement a loyalty micro-service, using express and a mongo database.
