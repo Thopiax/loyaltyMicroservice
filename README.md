@@ -13,7 +13,7 @@ The swagger code generation offered a functional yet simple basis on which to st
 
 ### Status Enum
 
-Class allows for a more flexible and extendable status hierarchy. Since the ride thresholds for each status weren't given in the instructions, I devised my own and added them as constants in `loyalty_app.rb`:
+Status class allows for a more flexible and extendable status hierarchy. Since the ride thresholds for each status weren't given in the instructions, I devised my own and added them as constants in `loyalty_app.rb`:
 
 ```
 BRONZE_THRESHOLD = 0
@@ -24,6 +24,7 @@ PLATINUM_THRESHOLD = 50
 
 ### Extension
 
+As a quick extension to the project, I decided to add the capability of receiving any currency through the `points` endpoint and converting it to the correct amount of points (with relation to euros). This would facilitate the expansion of the micro-service's use to an international level. It might end up being useful *cough* [Uber ban in London](http://www.bbc.co.uk/news/business-41363923) *cough*.
 
 ## HOW TO
 

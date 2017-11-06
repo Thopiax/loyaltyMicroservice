@@ -1,8 +1,10 @@
+require 'concurrency'
+
 class User
   include Mongoid::Document
 
   field :points,       type: Integer, default: 0
-  field :euros_spent,  type: Float,   default: 0
+  field :money_spent,  type: Float,   default: 0
   field :status_index, type: Integer, default: 0
   field :ride_count,   type: Integer, default: 0
 
@@ -13,11 +15,11 @@ class User
     404
   end
 
-  def self.valid_user_points(euros_spent, is_ride)
-    # check if euros_spent is a positive float
+  def self.valid_user_points(money_spent, is_ride)
+    # check if money_spent is a positive float
     # and check if is_ride is a boolean
-    euros_spent.present? && euros_spent.to_f.to_s == euros_spent &&
-      euros_spent.to_f > 0 && (is_ride == "false" || is_ride == "true")  
+    money_spent.present? && money_spent.to_f.to_s == money_spent &&
+      money_spent.to_f > 0 && (is_ride == "false" || is_ride == "true")
   end
 
   def status
@@ -28,8 +30,15 @@ class User
     next_status_threshold - self.ride_count
   end
 
-  def add_points(euros_spent, is_ride)
-    self.euros_spent += euros_spent
+  def add_points(money_spent, is_ride, foreign_currency_code = nil)
+    euros_spent = if foreign_currency_code.nil?
+      money_spent
+    else
+      convert(money_spent, foreign_currency_code)
+    end
+
+    self.money_spent += euros_spent
+
     add_ride if is_ride == "true"
     # only calculate points at the end in case status changes
     self.points += euros_spent * euro_to_point_rate
@@ -40,6 +49,12 @@ class User
   def add_ride
     self.ride_count += 1
     check_status
+  end
+
+  def convert(amount, foreign_currency_code)
+    Concurrency.convert(amount, foreign_currency_code, "EUR")
+  rescue NoMethodError
+    halt 400, "Wrong currency code"
   end
 
   def euro_to_point_rate

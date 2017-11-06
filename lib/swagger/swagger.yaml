@@ -56,7 +56,7 @@ paths:
     post:
       tags:
       - "points"
-      summary: "Add euros spent to user profile."
+      summary: "Add money spent to user profile."
       operationId: "addPoints"
       parameters:
       - name: "userId"
@@ -127,15 +127,27 @@ definitions:
   UserPoints:
     type: "object"
     required:
-    - "eurosSpent"
+    - "moneySpent"
     - "isRide"
     properties:
-      eurosSpent:
+      moneySpent:
         type: "number"
         format: "float"
         minimum: 0
       isRide:
         type: "boolean"
+      foreign_currency_code:
+        type: "string"
+        format: "currency_code"
+  RideStatus:
+    type: "object"
+    properties:
+      rideCount:
+        type: "number"
+        format: "int32"
+      ridesRemaining:
+        type: "number"
+        format: "int32"
   UserStatus:
     type: "object"
     properties:
