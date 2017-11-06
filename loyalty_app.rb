@@ -8,10 +8,10 @@ class LoyaltyApp < Swaggering
     config.api_version = '1.0.0'
     Mongoid.load!("./config/mongoid.yml")
 
-    Status.new("bronze", 0)
-    Status.new("silver", 10)
-    Status.new("gold", 25)
-    Status.new("platinum", 50)
+    Status.new("bronze", 0, 1)
+    Status.new("silver", 10, 3)
+    Status.new("gold", 25, 5)
+    Status.new("platinum", 50, 10)
   end
 end
 
