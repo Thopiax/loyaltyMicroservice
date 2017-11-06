@@ -18,7 +18,7 @@ class User
   end
 
   def rides_remaining
-    self.ride_count
+    status_threshold - self.ride_count
   end
 
   def add_points(euros_spent, is_ride)
