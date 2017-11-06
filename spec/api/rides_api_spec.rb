@@ -1,2 +1,0 @@
-class RidesApiSpec < BaseApiSpec
-end
