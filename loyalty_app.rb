@@ -1,6 +1,7 @@
-require './lib/swaggering'
 require 'mongoid'
-require './lib/status'
+
+# include util files
+Dir["./lib/util/*.rb"].each { |file| require file }
 
 BRONZE_THRESHOLD = 0
 SILVER_THRESHOLD = 10
@@ -21,6 +22,6 @@ class LoyaltyApp < Swaggering
 end
 
 # include the api files
-Dir["./api/*.rb"].each        { |file| require file }
-# include models
+Dir["./api/*.rb"].each { |file| require file }
+# include the models
 Dir["./lib/models/*.rb"].each { |file| require file }
